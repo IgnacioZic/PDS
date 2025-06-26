@@ -3,7 +3,7 @@
 """
 Created on Wed Nov  8 19:55:30 2023
 
-@author: mariano
+@author: nachi
 """
 
 import numpy as np
@@ -105,18 +105,19 @@ plt.show()
 
 #Obtener la Estimación del BW
 aprox_BW = np.cumsum(PSD_ECG_1_NORM)
-aprox_BW_ecg = aprox_BW/np.max(aprox_BW)
-limite_BW = np.max(aprox_BW_ecg[aprox_BW_ecg < tope_ecg])
-estimacion_BW_ecg_1 = ff_ecg[np.where(aprox_BW_ecg == limite_BW)[0]]#En Hz
+aprox_BW_ecg_1 = aprox_BW/np.max(aprox_BW)
+limite_BW = np.max(aprox_BW_ecg_1[aprox_BW_ecg_1 < tope_ecg])
+estimacion_BW_ecg_1 = ff_ecg[np.where(aprox_BW_ecg_1 == limite_BW)[0]]#En Hz
 
 aprox_BW = np.cumsum(PSD_ECG_2_NORM)
-aprox_BW_ecg = aprox_BW/np.max(aprox_BW)
-limite_BW = np.max(aprox_BW_ecg[aprox_BW_ecg < tope_ecg])
-estimacion_BW_ecg_2 = ff_ecg[np.where(aprox_BW_ecg == limite_BW)[0]]#En Hz
+aprox_BW_ecg_2 = aprox_BW/np.max(aprox_BW)
+limite_BW = np.max(aprox_BW_ecg_2[aprox_BW_ecg_2 < tope_ecg])
+estimacion_BW_ecg_2 = ff_ecg[np.where(aprox_BW_ecg_2 == limite_BW)[0]]#En Hz
                                                     
 # plt.figure("Estimacion de Ancho de Banda")
 # plt.title('Estimo Ancho de banda')
-# plt.plot(ff_ecg[bfrec_ecg],aprox_BW_ecg,color = 'orange',label="PSD Periodograma")
+# plt.plot(ff_ecg[bfrec_ecg],aprox_BW_ecg_1,color = 'orange',label="PSD Periodograma",alpha=0.8)
+# plt.plot(ff_ecg[bfrec_ecg],aprox_BW_ecg_2,color = 'green',label="PSD Welch",alpha=0.8)
 # plt.xlabel("Freq (Hz)")
 # plt.ylabel("DFT Amplitude |X(freq)| dB")
 # plt.legend()
@@ -291,13 +292,17 @@ plt.plot(ff[bfrec],PSD_MY_ECG_LOG_2,color = 'g',label="PSD Welch")
 plt.xlabel("Freq (Hz)")
 plt.ylabel("DFT Amplitude |X(freq)| dB")
 plt.legend()
-# plt.show()
+plt.show()
 
 #Obtener la Estimación del BW
 aprox_BW_3 = np.cumsum(PSD_MY_ECG_NORM_1)
 aprox_BW_my_ecg = aprox_BW_3/np.max(aprox_BW_3)
 limite_BW_3 = np.max(aprox_BW_my_ecg[aprox_BW_my_ecg < tope_my_ecg])
 estimacion_BW_my_ecg_1 = f_1[np.where(aprox_BW_my_ecg == limite_BW_3)[0]]#En Hz
+aprox_BW_3 = np.cumsum(PSD_MY_ECG_NORM_2)
+aprox_BW_my_ecg_2 = aprox_BW_3/np.max(aprox_BW_3)
+limite_BW_3 = np.max(aprox_BW_my_ecg_2[aprox_BW_my_ecg_2 < tope_my_ecg])
+estimacion_BW_my_ecg_2 = f_1[np.where(aprox_BW_my_ecg_2 == limite_BW_3)[0]]#En Hz
 
 
 plt.figure("Estimacion de Ancho de Banda")
@@ -305,13 +310,6 @@ plt.title('Estimo Ancho de banda')
 plt.plot(ff[bfrec],aprox_BW_my_ecg,color = 'orange',label="PSD Periodograma")
 plt.xlabel("Freq (Hz)")
 plt.ylabel("DFT Amplitude |X(freq)| dB")
-
-
-aprox_BW_3 = np.cumsum(PSD_MY_ECG_NORM_2)
-aprox_BW_my_ecg = aprox_BW_3/np.max(aprox_BW_3)
-limite_BW_3 = np.max(aprox_BW_my_ecg[aprox_BW_my_ecg < tope_my_ecg])
-estimacion_BW_my_ecg_2 = f_1[np.where(aprox_BW_my_ecg == limite_BW_3)[0]]#En Hz
-
-plt.plot(ff[bfrec],aprox_BW_my_ecg,color = 'red',label="PSD Periodograma")                                               
+plt.plot(ff[bfrec],aprox_BW_my_ecg_2,color = 'green',label="PSD Welch",alpha=0.8)                                               
 plt.legend()
 plt.show()
